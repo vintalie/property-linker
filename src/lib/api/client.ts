@@ -46,13 +46,13 @@ async function raw(method: string, path: string, body?: unknown, auth = true) {
     "Content-Type": "application/json",
   };
   const token = getToken();
-  if (auth && token) headers.Authorization = `Bearer ${token}`;
+  if (auth && token) headers["Authorization"] = `Bearer ${token}`;
   let res: Response;
   try {
     res = await fetch(`${getBaseUrl()}/${path.replace(/^\/+/, "")}`, {
       method,
       headers,
-      body: body === undefined ? undefined : JSON.stringify(body),
+      body: body === undefined ? null : JSON.stringify(body),
     });
   } catch {
     throw new ApiError(

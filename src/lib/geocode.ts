@@ -12,7 +12,7 @@ function readCache(): Record<string, [number, number] | null> {
 
 export async function geocode(query: string): Promise<[number, number] | null> {
   const cache = readCache();
-  if (query in cache) return cache[query];
+  if (query in cache) return cache[query] ?? null;
   const wait = Math.max(0, last + 1100 - Date.now());
   if (wait) await new Promise((r) => setTimeout(r, wait));
   last = Date.now();
@@ -46,4 +46,4 @@ export const decodePoints = (s: string | undefined): MapPoint[] =>
     .split(",")
     .map((x) => x.split(":"))
     .filter((p) => p.length === 3 && !isNaN(Number(p[1])) && !isNaN(Number(p[2])))
-    .map(([id, lat, lng]) => ({ id, lat: Number(lat), lng: Number(lng) }));
+    .map(([id, lat, lng]) => ({ id: String(id), lat: Number(lat), lng: Number(lng) }));
