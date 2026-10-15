@@ -1,6 +1,7 @@
 import { api, listAll, unwrapOne } from "./client";
 
-export type Row = Record<string, any> & { id?: number | string };
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type Row = any;
 
 export type FieldType = "text" | "number" | "email" | "boolean" | "html" | "image" | "ref";
 export interface FieldDef {
